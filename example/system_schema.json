@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BillingSystem",
+  "type": "object",
+  "properties": {
+    "systemName": {
+      "type": "string",
+      "description": "The name of the billing system"
+    },
+    "systemVersion": {
+      "type": "string",
+      "description": "The version of the billing system"
+    },
+    "supportedPaymentMethods": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["Credit Card", "Bank Transfer", "PayPal", "Crypto", "Cash"],
+        "description": "Supported payment methods by the billing system"
+      }
+    },
+    "invoices": {
+      "type": "array",
+      "items": {
+        "$ref": "invoice-schema.json"
+      },
+      "description": "A list of invoices processed by the billing system"
+    },
+    "defaultTaxRate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Default tax rate applied to invoices if not specified"
+    },
+    "systemOwner": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "contactEmail": { "type": "string", "format": "email" }
+      },
+      "required": ["name", "contactEmail"],
+      "description": "Information about the owner or maintainer of the billing system"
+    }
+  },
+  "required": ["systemName", "systemVersion", "supportedPaymentMethods", "invoices", "defaultTaxRate", "systemOwner"]
+}
